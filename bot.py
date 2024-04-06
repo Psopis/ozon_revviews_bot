@@ -11,6 +11,7 @@ from tgbot.handlers.admin import register_admin
 from tgbot.handlers.echo import register_echo
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.environment import EnvironmentMiddleware
+from tgbot.models import init_db
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +44,7 @@ async def main():
     dp = Dispatcher(bot, storage=storage)
 
     bot['config'] = config
-
+    await init_db(config)
     register_all_middlewares(dp, config)
     register_all_filters(dp)
     register_all_handlers(dp)
